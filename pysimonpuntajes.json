@@ -1,0 +1,40 @@
+{
+    "jugadores": [
+        {
+            "jugador": "facundo",
+            "fecha": "2024-06-18",
+            "hora": "15:33:53",
+            "puntaje": 21
+        },
+        {
+            "jugador": "facu",
+            "fecha": "2024-06-11",
+            "hora": "23:09:07",
+            "puntaje": 15
+        },
+        {
+            "jugador": "juan",
+            "fecha": "2024-06-11",
+            "hora": "23:22:23",
+            "puntaje": 15
+        },
+        {
+            "jugador": "probando",
+            "fecha": "2024-06-18",
+            "hora": "15:56:43",
+            "puntaje": 15
+        },
+        {
+            "jugador": "juanceto007",
+            "fecha": "2024-06-12",
+            "hora": "01:01:48",
+            "puntaje": 10
+        },
+        {
+            "jugador": "carlos420",
+            "fecha": "2024-06-18",
+            "hora": "15:38:18",
+            "puntaje": 10
+        }
+    ]
+}
