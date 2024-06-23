@@ -67,14 +67,8 @@ class Aplicacion():
         
         #   Main loop de la ventana
         self.__ventana.mainloop()
-        
-        
-        #   Main loop de la ventana
-        self.__ventana.mainloop()
-        
-        
-        
-#   Funciones
+
+
     #   Inicio el juego reseteando secuencia y respuesta del juegador
     def iniciar_juego(self):
         self.botonComenzar.config(state=tk.DISABLED) # luego de apretar el boton comenzar se inhabilita
@@ -83,7 +77,7 @@ class Aplicacion():
         self.generar_color()  
 
     def generar_color(self):  
-        if self.secuencia == []:               #    primer secuencia inicia con verde
+        if self.secuencia == []:                        # primer secuencia inicia con verde si la lsita esta vacioa
             color_nuevo = self.colores[0]
             self.secuencia.append(color_nuevo)
             self.mostrar_secuencia()
@@ -92,75 +86,74 @@ class Aplicacion():
             self.secuencia.append(color_nuevo)
             self.mostrar_secuencia()
 
-    def mostrar_secuencia(self):
-        time.sleep(1)
-        for color in self.secuencia:
-            index_color = self.colores.index(color)
-            self.botones[index_color].config(bg="gray")
-            self.__ventana.update()
-            time.sleep(1)
-            self.botones[index_color].config(bg=color)
-            self.__ventana.update()
+    def mostrar_secuencia(self):                        # muestra la secuencia al jugador
+        time.sleep(1)                                   # demora el programa 1 segund
+        for color in self.secuencia:                    # itero sobre cada color guardada en la secuencia
+            index_color = self.colores.index(color)     # encuentro el indice actual del self.secuenica
+            self.botones[index_color].config(bg="gray") # con el indice actual cambio de color el boton a gris
+            self.__ventana.update()                     # se actualiza la ventana para mostrar los cambios hechos 
+            time.sleep(1)                               # demoro el programa en un segundo
+            self.botones[index_color].config(bg=color)  # restablece al color original
+            self.__ventana.update()                     # actualizo para ver los cambios
             time.sleep(0.5)
-        self.jugar()
+        self.jugar()                                    # llamo al metodo jugar
 
     def jugar(self):
-        self.respuesta_jugador = []
-        self.__ventana.bind("<Button-1>", self.procesar_clic)
+        self.respuesta_jugador = []                             # renicia la lista donde esta la respuesta del jugador
+        self.__ventana.bind("<Button-1>", self.procesar_clic)   # cada vez q haga click llama al metodo self.procesar_click
 
     def procesar_clic(self, event):
-        colores = ["#006400", "#8B0000", "#CCCC00", "#00008B"]
-        colores_click = ['#7fbf80','#df5f5f','#ffff80','#7f7fbf']
-        boton_presionado = event.widget
-        color_presionado = boton_presionado.cget("background")
-        self.respuesta_jugador.append(color_presionado)
+        colores_click = ['#7fbf80','#df5f5f','#ffff80','#7f7fbf'] # colores q sirven para der el efecto de boton clickeado
+        boton_presionado = event.widget                           # guardo la referencia del boton clickeado
+        color_presionado = boton_presionado.cget("background")    # guardo el color q fue presionado por el jugador
+        self.respuesta_jugador.append(color_presionado)           # guardo el color del boton presionado por el jugador
         
-        for i in range(len(colores)):
-            
-            if colores[i] == color_presionado:
-                boton_presionado.config(bg=colores_click[i])
+        for i in range(len(self.colores)):                       
+                                                                  
+            if self.colores[i] == color_presionado:               # cambio de un color mas claro al boton presionado por el jugador
+                boton_presionado.config(bg=colores_click[i])      # da el efecto del boton clickeado
                 
         self.__ventana.update()
         time.sleep(0.2)
-        boton_presionado.config(bg=color_presionado)
+        boton_presionado.config(bg=color_presionado)              # restablece al color original
         self.__ventana.update()
 
-        if len(self.respuesta_jugador) == len(self.secuencia):
+        if len(self.respuesta_jugador) == len(self.secuencia):    # verifica la respuesta del jugador
             self.verificar_respuesta()
 
     def verificar_respuesta(self):
         
-        if self.respuesta_jugador == self.secuencia:
-            self.actualizar_puntaje(len(self.secuencia))
-            self.generar_color()
+        if self.respuesta_jugador == self.secuencia:            # si la respuesta es correcta actualizo el puntaje
+            self.actualizar_puntaje(len(self.secuencia))        # actualizo el puntaje obtenido
+            self.generar_color()                                # vuelve a generar una nueva secuencia de colores
         else:
-            messagebox.showinfo("¡Perdiste!", "Respuesta incorrecta. ¡Inténtalo de nuevo!")
-            self.botonComenzar.config(state=tk.NORMAL)
-            self.guardar_record()
-            self.resetPuntaje()
+            messagebox.showinfo("¡Perdiste!", "¡Inténtalo de nuevo!") # si las secuencias son distintas
+            self.botonComenzar.config(state=tk.NORMAL)                # restablezco el boton start
+            self.guardar_record()                                     # guardo el record del jugador
+            self.resetPuntaje()                                       # reseteo puntajes
             
     def resetPuntaje(self):
-        self.puntaje.config(text='0')
-        self.__puntaje = 0    
+        self.puntaje.config(text='0')       # pongo en 0 el label del puntaje
+        self.__puntaje = 0                  # reinicio en 0 la variable del puntaje
     def actualizar_puntaje(self, puntos):
-        puntaje_actual = int(self.puntaje.cget("text"))
-        self.__puntaje = puntaje_actual + puntos
-        self.puntaje.config(text=str(self.__puntaje)) 
+        puntaje_actual = int(self.puntaje.cget("text")) # obtengo el puntaje actual desde el label
+        self.__puntaje = puntaje_actual + puntos        # sumo el puntaje actual con el nuevo puntaje
+        self.puntaje.config(text=str(self.__puntaje))   # acutualizo en el label el nuevo puntaje obtenido
         
      
     def guardar_record(self):
-        fecha_hora = datetime.datetime.now()
-        self.__fecha = fecha_hora.date()
-        self.__hora = fecha_hora.strftime('%H:%M:%S')
-        self.__gestor.agregarJugador(Jugador(self.__jugador,self.__fecha,self.__hora,self.__puntaje))
+        fecha_hora = datetime.datetime.now() # obtengo fecha y hora del sistema
+        self.__fecha = fecha_hora.date()    # guardo la hora
+        self.__hora = fecha_hora.strftime('%H:%M:%S') #guardo la fecha
+        self.__gestor.agregarJugador(Jugador(self.__jugador,self.__fecha,self.__hora,self.__puntaje))  # agrego un nuevo Jugador al gestor
         self.resetPuntaje()
     
     #  Ventana donde ingresa el nombre el jugador
     def ventana_jugador(self):
-        self.__ventanaJug = Toplevel()
+        self.__ventanaJug = Toplevel()         # creo la ventana hija de la principal
         fuente = font.Font(weight='bold')
         self.__ventanaJug.resizable(0,0)
-        self.__ventanaJug.title('Simon dice')
+        self.__ventanaJug.title('Ingresa tu Nick!')
         
         #   Labels e inputs
         self.labelDatosJug = tk.Label(self.__ventanaJug, text='Datos del jugador')

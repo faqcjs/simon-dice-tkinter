@@ -1,6 +1,12 @@
 {
     "jugadores": [
         {
+            "jugador": "santi",
+            "fecha": "2024-06-23",
+            "hora": "17:01:25",
+            "puntaje": 28
+        },
+        {
             "jugador": "facundo",
             "fecha": "2024-06-18",
             "hora": "15:33:53",
@@ -11,6 +17,12 @@
             "fecha": "2024-06-22",
             "hora": "18:36:32",
             "puntaje": 21
+        },
+        {
+            "jugador": "lucas",
+            "fecha": "2024-06-23",
+            "hora": "17:14:01",
+            "puntaje": 10
         }
     ]
 }
