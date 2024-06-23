@@ -50,7 +50,7 @@ class Aplicacion():
             #   Agrego el boton q se creo en una lista de botones q son canvas en realidad
             self.botones.append(boton)
         #   Creo los botones de comenzar y salir
-        self.botonComenzar = tk.Button(self.__ventana, text="Start", command=self.ventana_jugador, bg='beige', font='weight')
+        self.botonComenzar = tk.Button(self.__ventana, text="Start", command=self.ventana_jugador, bg='beige', font='weight' )
         self.botonComenzar.grid(row=4, column=1, ipady=10, ipadx=30)
         
         
